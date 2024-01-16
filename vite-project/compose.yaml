@@ -1,0 +1,25 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - 5173:5173
+    volumes:
+      # over here, we are mounting the current directory to the `/app` directory inside the container (which is the working directory of the container)
+      # syntax is `<path to the directory on host>:<path to the directory inside the container>`
+      # we're doing this because we want to reflect the changes made to the files in the current directory inside the container
+      - .:/app
+      # we also mount the node_modules directory inside the container at /app/node_modules. This is done to avoid installing the node_modules inside the container. 
+      # node_modules will be installed on the host machine and mounted inside the container
+      - /app/node_modules  
+
+
